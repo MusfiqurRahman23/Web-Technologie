@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>php</title>
+  <title>php validation</title>
   <link rel="stylesheet" href="styles.css">
    <style type="styles/css">
     .red{
@@ -18,30 +18,33 @@
 <?php
 
 $nameErr = $emailErr = $dobErr =  $genderErr =  $degreeErr= $bgErr= "";
-$name = $email = $dob = $gender = $degree = $dob = $bg = "";
-
-if(isset ($_POST['Submit'])){
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$dob = $_POST['dob'];
-    $gender = $_POST['gender'];
-    $degree = $_POST['degree'];
-    $bg = $_POST['bd'];   
-	if(empty($n)){
-		$nameErr = "Please Enter Your Name";
-	}
-	else{
-		if(!preg_match("/^[a-zA-Z- ]*$/", $name)){
-		$nameErr =" Text contain a-z, A-Z, period, only. Please Re-enter Your Name";
-		$name = "";
-	     }
-	    else{
-	     	if(str_word_count($name)<2){
-	     		$nameErr = "Name should contains at least two words";
-	     		$name = "";
-	     	}
-	     }
-	}
+$name = $email = $dob = $gender = $degree[]  = $bg = "";
+//$d = array("SSC","HSC","BSC","MSC");
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+        if(empty($_POST["name"])){
+            $nameErr="Cannot be empty";
+        }
+        elseif(strlen($_POST["name"])<2){
+            $nameErr="Name must two words Long";
+        }
+        elseif(strpos($_POST["name"],"")){
+            $nameErr="Username should not contain white space";
+        }
+        else{
+            $name=$_POST["name"];
+        }
+    
+                  
+      if (empty($_POST["email"])) {
+         $emailErr = "Email is required";
+         }
+     elseif(!strpos($_POST["email"],"@")){
+        $emailErr="Email must contain @";
+            }			 
+     else{
+         $email =$_POST["email"];
+         }
+   
 	if(empty($email)){
 		$emailErr = "Please Enter Your Email";
 	}
@@ -51,28 +54,38 @@ if(isset ($_POST['Submit'])){
 		$email = "";
 	     }
 	}
-	if(empty($dob)){
+	if(empty($_POST["dob"])){
 		$dobErr = "Please choose your birth date ";
 	}
-	else{
-		if($dob<1953-01-01 && $dob>1998-12-31){
-       $dobErr = "Enter your valid birth date "; 
-		}
-	}
 	
+	else{
+        $dob = $_POST["dob"];
+    }
+   
+    if(empty($_POST["gender"])){
+        $genderErr="Chose Your Gender";
+    }
+    else{
+        $gender=$_POST["gender"];
+    }
 
-	if(empty($g)){
-		$genderErr = "Please select one option";
-	}
-
-	if(count($d)<2){ 
-        $degreeErr = "Please select two of them ";
- 	 }
- 	
- 	if(empty($bd)){
+    if(!empty($_POST['degree'])){
+        foreach($_POST['degree'] as $checked){
+          echo $checked."</br>";
+        }
+      }
+    else{
+        $degree=$_POST["degree"];
+    }
+       
+ 	if(empty($_POST["bg"])){
 		$bgErr = "Please select one option";
-	}
- }	
+	    }
+    else{
+        $bg=$_POST["bg"];
+        }
+
+}
 ?>
 
 
@@ -82,7 +95,8 @@ if(isset ($_POST['Submit'])){
     <fieldset>
         <legend>  <b>NAME</b> </legend>
         
-        <input type="text" name="name"
+        <input type="text" name="name">
+        <span><?php echo "$nameErr";?></span>
         <span class="red"></span>
 		<br><br>
         <span class="underline">______________________</span>
@@ -91,15 +105,47 @@ if(isset ($_POST['Submit'])){
     <br>
     <fieldset>
         <legend>   <b>EMAIL</b> </legend>
-        <input type="text" name="email" <span class="red"></span><br><br>
-        <span class="underline">______________________</span>
+        <input type="text" name="email" id="email" name="email" value="<?php echo "$email";?>" >
+        <span class="red"></span><br><br>
+     <span class="red" id="emailErr"><?php echo "$emailErr";?></span>
+     <span>______________________</span>
     </fieldset>
     <br>
     <br>
     <fieldset>
         <legend>   <b>DATE OF BIRTH</b></legend>
-        <label for="birthday"></label>
-  <input type="date" id="birthday" name="birthday">
+       
+  
+  <select id="dob" name="dob">
+  <option disabled selected>Day</option>
+     <?php
+        for($i=1;$i<=31;$i++){
+            echo "<option>$i</option>";
+             }
+     ?>
+      </select>
+												
+     <select id="dob" name="dob">
+     <option disabled selected>Month</option>
+   <?php
+   $month= array("January","February","March","April","May","June","July","August","September","October","November","December");  
+    for($j=0;$j<count($month);$j++) {
+         echo "<option>$month[$j]</option>";
+      }
+     ?>
+  </select>						
+						
+   <select id="dob" name="dob">  
+ <option disabled selected>Year</option>
+ <?php
+  for($k=1953;$k<=1998;$k++){
+          echo "<option>$k</option>";
+            }
+       ?>
+						
+     </select>
+     <span id="$dobErr"><?php echo $dobErr;?></span>
+  
   <span class="underline">______________________</span>
     </fieldset>
     <br>
@@ -109,7 +155,7 @@ if(isset ($_POST['Submit'])){
         <input type="radio" name="gender" value = "Male" >Male
         <input type="radio" name="gender" value="Female">Female
         <input type="radio" name="gender" value="Other">Other
-        <span style="color: red"><br></span>
+        <span><?php echo $genderErr; ?> </span>
    
         <span class="underline">______________________</span>
     </fieldset>
@@ -117,12 +163,13 @@ if(isset ($_POST['Submit'])){
     <br>
     <fieldset>
         <legend>   <b>DEGREE</b> </legend>
-        <label for="fname"></label>
-        <input type="checkbox" id="ssc" name="ssc" value="ssc">SSC<br>
-        <input type="checkbox" id="hsc" name="hsc" value="hsc">HSC<br>
-        <input type="checkbox" id="bsc" name="bsc" value="bsc">BSC<br>
-        <input type="checkbox" id="msc" name="msc" value="msc">MSC<br>
-        <br><br>
+        <input type="checkbox" name="degree[]" value="SSC">SSC<br>
+        <input type="checkbox" name="degree[]"  value="HSC">HSC<br>
+        <input type="checkbox" name="degree[]" value="BSC">BSC<br>
+        <input type="checkbox" name="degree[]" value="MSC">MSC<br>
+        <span><br> <?php echo $degreeErr;?></span>        
+        <span class="underline">______________________</span>
+        <br>
        
     </fieldset>
     <br>
@@ -131,7 +178,7 @@ if(isset ($_POST['Submit'])){
         <legend>   <b>BLOOD GROUP</b> </legend>
         <label for="bg"></label>
   <select name="bg" id="bg">
-    <option value="op"></option>
+    <option value=""></option>
     <option value="O+">O+</option>
     <option value="O-">O-</option>
     <option value="a+">A+</option>
@@ -141,9 +188,11 @@ if(isset ($_POST['Submit'])){
     <option value="b+">B+</option>
     <option value="b-">B-</option>
   </select>
+  <span><br><?php  echo $bgErr;?></span>
+  <br>
   
-  <br><br>
-        <input type="submit" name "send"> 
+        <input type="submit" name ="send"> <br>
+       
     </fieldset>
     <br>
     
@@ -151,7 +200,7 @@ if(isset ($_POST['Submit'])){
 </form>
 <?php
 
-echo "<h1>$name</h1>" ;
+echo "$name" ;
 echo "<br>";
 echo "$email";
 echo "<br>";
@@ -159,9 +208,7 @@ echo "$dob";
 echo "<br>";
 echo "$gender"; 
 echo "<br>";
-foreach ($degree as $key => $value) {
-echo $value . " ";
- }
+echo "$degree";
 echo "<br>";
 echo "$bg"; 
 ?>
