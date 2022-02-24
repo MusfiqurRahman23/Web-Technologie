@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+img {
+  border: 1px solid rgb(253, 249, 249);
+  border-radius: 20px;
+  padding: 3px;
+  width: 200px;
+}
+a{
+    text-decoration: none;
+}
+.xero{
+    width: 100%;
+    height: 100vh;
+    background: url(img/bg1.jpg);
+    background-size: cover;
+}
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 100px;
+}
+.logo{
+    border-radius: 20px;
+  padding: 3px;
+    max-height: 200px;
+}
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 10px 20px;
+}
+nav ul li a{
+    color: #1d1d24;
+    position: relative;
+    padding: 5px 0;
+}
+nav ul li a:hover{
+    color: #fd4766;
+}
+nav ul li a:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #fd4766;
+    transition: .3s;
+    bottom: 0;
+}
+nav ul li a:hover:after{
+    width: 100%;
+}
+.btn{
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    border-radius: 500px;
+    display: inline-block;
+    font-weight: 500;
+    transition: all .4s ease-in-out;
+    background-size: 152% 100%;
+    background: #fd4766;
+    border: 2px solid #df1537;
+}
+
+.content{
+    position: absolute;
+    top: 35%;
+    left: 8%;
+}
+.content .title{
+    color: #1f1f25;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    display: inline-block;
+    margin-bottom: 20px;
+    background: linear-gradient(120deg, #1c99fe 20.69%, #7644ff 50.19%,#fd4766 79.69%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.content h1{
+    color: #1f1f25;
+    font-size: 75px;
+    font-weight: 800;
+    line-height: 90px;
+    text-transform: inherit;
+    width: 70%;
+}
+.content h1 span{
+    color: #fd475f;
+}
+.content p{
+    width: 55%;
+    color: #ec3aa8;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+.right {
+          background-color: rgb(117, 128, 128);
+          position: absolute;
+    top: 73%;
+    left: 35%;
+          width: 30%;
+          padding:  22px;
+          margin-top: 2px;
+}
+.fa {
+  padding: 10px;
+  font-size: 15px;
+  width: 5px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 10%;
+}
+
+.fa:hover {
+    opacity: 0.2;
+}
+.fa-facebook {
+  background: #353434;
+  color: white;
+  float: right;
+          width: 25%;
+          padding: 50px 15px;
+          margin-top: 35px;
+}
+.fa-linkedin {
+  background: #0c00b5;
+  color: white;
+  float: right;
+          width: 25%;
+          padding: 50px 15px;
+          margin-top: 35px;
+}
+.fa-instagram {
+  background: #6f33b4;
+  color: white;
+  float: right;
+          width: 25%;
+          padding: 50px 15px;
+          margin-top: 35px;
+}
+
+    </style>
+</head>
+
+    <body>
+        <div class="xero">
+            <nav>
+               <img src="Logo.png" class="logo">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li>
+                   
+                </ul>
+                <img src="me20.jpg" alt="me" style="width:200px">
+            </nav>
+            <div class="content">
+                <span class="title"> Web Developer</span>
+                <h1>Hello, I’m <span>Musfiqur Rahman</span></h1>
+                <p>I’m working on a professional, visually sophisticated and technologically proficient, responsive.</p>
+                
+            </div>
+        </div>
+        <div class="right">   
+            <p><i><b>Contact:</b></i><br>Phone: +8801929-612107<br>e-mail: musfiqurrahman1205@gmail.com</p>
+            <a href="https://www.linkedin.com/in/musfiqur-rahman-a20a841b0/"><aria-hidden=  class="fa fa fa-linkedin" aria-hidden="true"></i><p>Linkedin</p></a>
+            <a href="https://www.facebook.com/musfiqurrahman.emon.77"> <aria-hidden=  class="fa fa-facebook"aria-hidden="true"></i><p>Facebook</p></a>  
+           <a herf="https://www.instagram.com/m_u_s_h_i_75/?utm_medium=copy_link&fbclid=IwAR3VFwrdZRHXosgSUJVk5O72xNaX0erX1tDOmH07KECAVcuXjN3c0cjjxw4"> <aria-hidden=  class="fa fa-instagram"aria-hidden="true"></i><p>Instagram</p></a>          
+          
+      </div>
+    </div>
+    </body>
+</html>
